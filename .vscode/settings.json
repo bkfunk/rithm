@@ -1,0 +1,14 @@
+{
+    "python.testing.pytestPath": "pytest",
+    "python.testing.pytestArgs": [
+        "-v",
+        "-s"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "workbench.colorCustomizations": {
+        "tab.activeBorder": "#0be98c",
+        "tab.inactiveBackground": "#63636328",
+        "tab.activeBackground": "#85858581"
+    }
+}

@@ -1,0 +1,14 @@
+FROM python:3.10 as base
+
+WORKDIR /rithm
+COPY . .
+
+RUN curl -sSL https://install.python-poetry.org | python3 -
+
+ENV PATH="${PATH}:/root/.local/bin"
+
+FROM base as dev
+RUN poetry config virtualenvs.in-project true
+RUN poetry lock
+RUN poetry install --verbose
+RUN poetry show
