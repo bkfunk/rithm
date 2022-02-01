@@ -2,9 +2,10 @@
 import click
 from rithm.rithm import Rithm
 
+
 @click.command()
-@click.option('-f', '--file', 'file', type=click.File(), help="Rithm file to process")
-@click.option('-i', '--input', 'input', type=str, help="Literal input to evaluate")
+@click.option("-f", "--file", "file", type=click.File(), help="Rithm file to process")
+@click.option("-i", "--input", "input", type=str, help="Literal input to evaluate")
 # @click.option('-d', '--debug', 'debug', type=bool, default=True, help="Whether to turn on debug logging")
 def rithm(file, input, debug: bool = True):
     rtm = Rithm()
@@ -21,7 +22,7 @@ def rithm(file, input, debug: bool = True):
         # REPL
         while True:
             try:
-                input = click.prompt("> ", prompt_suffix='')
+                input = click.prompt("> ", prompt_suffix="")
                 if input == "exit()":
                     click.echo("Exiting")
                     exit(0)

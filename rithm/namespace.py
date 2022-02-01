@@ -1,5 +1,3 @@
-
-
 from dataclasses import dataclass
 from typing import Dict
 
@@ -8,4 +6,3 @@ from typing import Dict
 class Namespace:
     values: Dict
     enclosing: "Namespace" = None
-

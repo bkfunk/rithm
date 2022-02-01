@@ -1,4 +1,3 @@
-
 from dataclasses import dataclass
 from typing import Any, List
 from rithm.datatypes.docs import Doc
@@ -11,6 +10,7 @@ class Algo:
     """
     An algorithm, consisting of multiple steps
     """
+
     name: str
     docs: Doc
     steps: List[Stmt]

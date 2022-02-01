@@ -6,6 +6,7 @@ from typing import Any, Dict, List, TYPE_CHECKING
 from rithm.parser import Parser
 from rithm.interpreter import Interpreter
 from rithm.scanner import Scanner
+
 # from rich import print, pretty
 from rich.pretty import Pretty, pretty_repr
 from rithm.logging import get_logger
@@ -16,6 +17,7 @@ if TYPE_CHECKING:
 
 
 rithm_logger = get_logger(__name__)
+
 
 class Rithm:
     def __init__(self, **namespace):
@@ -48,7 +50,13 @@ class Rithm:
     def __getitem__(self, key: Any) -> Any:
         return getattr(self, key)
 
-    def __call__(self, input: str = None, file: str = None, debug: bool = False, result: bool = False):
+    def __call__(
+        self,
+        input: str = None,
+        file: str = None,
+        debug: bool = False,
+        result: bool = False,
+    ):
         if input is None and file is None:
             return self.__instance
         elif input is not None:

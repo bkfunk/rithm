@@ -12,13 +12,16 @@ class Stmt:
         method = getattr(visitor, method_name)
         return method(self)
 
+
 @dataclass
 class BlockStmt(Stmt):
     statements: List[Stmt] = field(default_factory=list)
 
+
 @dataclass
 class AlgoStmt(Stmt):
     pass
+
 
 @dataclass
 class IfStmt(Stmt):
@@ -26,10 +29,12 @@ class IfStmt(Stmt):
     if_true: Stmt
     if_false: Stmt
 
+
 @dataclass
 class ArrowStmt(Stmt):
     left: Expr
     right: Expr
+
 
 @dataclass
 class ExpressionStmt(Stmt):

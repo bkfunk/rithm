@@ -15,6 +15,7 @@ WHITESPACE = (TT.SPACE, TT.TAB)
 
 parse_logger = get_logger(__name__)
 
+
 class ParseError(Exception):
     pass
 
@@ -26,14 +27,18 @@ def logged(fn):
         # tokens_str = ''.join([token.lexeme for token in tokens])
         # token_types = [token.token_type.name for token in tokens]
 
-        indent = parser.depth * ' '
-        parse_logger.debug(f"{indent}{fn.__name__}") # with tokens: {tokens_str!r} {token_types}")
+        indent = parser.depth * " "
+        parse_logger.debug(
+            f"{indent}{fn.__name__}"
+        )  # with tokens: {tokens_str!r} {token_types}")
 
         parser.depth += 1
         result = fn(parser, *args, **kwargs)
         parser.depth -= 1
         return result
+
     return log_fn
+
 
 @dataclass
 class Parser:
@@ -83,7 +88,9 @@ class Parser:
         parse_logger.debug(f"Consuming {self.current}: {self.current_token}")
         self.current += 1
         if not self.is_at_end:
-            parse_logger.debug(f"New current token {self.current}: {self.current_token}")
+            parse_logger.debug(
+                f"New current token {self.current}: {self.current_token}"
+            )
         return self.prev_token
 
     def match(
@@ -126,7 +133,6 @@ class Parser:
         parsed = self.parse_statement()
         return parsed
 
-
     @logged
     def parse_statement(self) -> Stmt:
         self.depth = 0
@@ -135,7 +141,6 @@ class Parser:
             return self.parse_if_statement()
 
         # if self.match(TT.IDENTIFIER):
-            
 
         parsed = self.parse_expression()
 
@@ -153,14 +158,11 @@ class Parser:
 
     @logged
     def parse_if_statement(self) -> IfStmt:
-        #TODO: What should delimit the if statement?
-        return IfStmt(
-
-        )
+        # TODO: What should delimit the if statement?
+        return IfStmt()
 
     # @logged
     # def parse_assigment_or_higher(self) -> Union[Expr, Stmt]:
-        
 
     @logged
     def parse_expression(self) -> Expr:
@@ -176,14 +178,9 @@ class Parser:
             value = self.parse_assignment_or_higher()
 
             if isinstance(expr, Identifier):
-                return self.log_and_parse(
-                    Assignment(
-                        expr.token,
-                        value
-                    )
-                )
+                return self.log_and_parse(Assignment(expr.token, value))
         return expr
-    
+
     def _parse_binary(
         self,
         higher_method: Callable,

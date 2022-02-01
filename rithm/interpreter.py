@@ -30,7 +30,6 @@ class Interpreter(Visitor):
     def evaluate(self, expr: Expr):
         return expr.accept(self)
 
-
     def visit_literal_expr(self, expr: Literal):
         return expr.value
 

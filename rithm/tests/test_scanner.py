@@ -34,16 +34,16 @@ def test_basic_scan():
     with pytest.raises(ScanningException):
         rtm().scan('"foo')
 
+
 def test_scan_arrows():
     arrow_with_spaces = rtm().scan("x -> foo")
-    assert token_types(
-        arrow_with_spaces,
-        ignore=None
-    ) == [
-        TT.IDENTIFIER, TT.SPACE, TT.ARROW_RIGHT, TT.SPACE, TT.IDENTIFIER
+    assert token_types(arrow_with_spaces, ignore=[TT.EOF]) == [
+        TT.IDENTIFIER,
+        TT.SPACE,
+        TT.ARROW_RIGHT,
+        TT.SPACE,
+        TT.IDENTIFIER,
     ]
 
     arrow_without_spaces = rtm().scan("x->foo")
     assert token_types(arrow_without_spaces) == token_types(arrow_with_spaces)
-
-

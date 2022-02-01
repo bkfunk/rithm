@@ -61,7 +61,7 @@ class Scanner:
                 literal=None,
                 line_no=self.line,
                 column=self.column,  # current_lexeme will be the LAST lexeme, since we don't update self.start
-                                     # So, we just use the column, which is the end of the last lexeme
+                # So, we just use the column, which is the end of the last lexeme
             )
         )
         return self.tokens
@@ -99,7 +99,7 @@ class Scanner:
                     self.add_token(TT.MINUS)
             case "?":
                 self.add_token(TT.QUESTION_MARK)
-            
+
             # Whitespace
             case " ":
                 while self.match(" "):
@@ -113,7 +113,7 @@ class Scanner:
                 self.add_token(TT.NEWLINE)
                 self.column = 1
                 self.line += 1
-            
+
             # Comparisons and arrows
             case "=":
                 if self.match("="):
@@ -164,7 +164,7 @@ class Scanner:
                 self.add_token(TT.TICK_OPEN)
             case "'":
                 self.add_token(TT.TICK_CLOSE)
-            
+
             # Literals
             case '"':
                 self.add_string()
@@ -174,7 +174,6 @@ class Scanner:
             # Reserved words
             case c if re.match(IDENTIFIER_START, c):  # Variable name / identifier
                 self.add_identifier()
-
 
     def advance(self):
         self.current += 1
