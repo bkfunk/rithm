@@ -1,0 +1,50 @@
+data_path = "../examples/data/titanic/train.csv"
+
+df = load_data(data_path)
+
+algo clean_data(df) do
+    /* Comment block 
+
+    */
+    //* Documenation block
+    *//
+    df -rename-> do
+        /// Rename vars and convert to camel_case
+        @Pclass as @passenger_class /// 1st, 2nd, or 3rd class
+        @SibSp as @num_siblings_spouses /// Number of siblings/spouses on board
+        @Parch as @num_parents_children /// Number of parents/children on board
+        @Ticket as @ticket_number
+        .columns => to_camel_case
+    end
+    -encode_embarked-> do
+        /// Port passenger embarked at
+        @embarked as @port_embarked
+        => to_factor
+        => .labels = {
+            "S" :> "Southampton"
+            "C" :> "Cherbourg"
+            "Q" :> "Queenstown"
+        }
+    end
+    -set_type-> @Fare
+        => as_type(Currency("$", decimals=?)) /// Price of fare, in USD
+    -process_name-> do
+        @name
+        -> split(", ")
+        -> to_columns as @last_name, @first_name
+        @first_name
+        => split(". ")
+        => to_columns as @honorific, _
+    end
+end
+
+clean = clean_data(df)
+
+clean@honorific.desc()
+
+algo foo do
+    hello
+end
+
+
+    
